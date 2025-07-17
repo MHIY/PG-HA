@@ -32,24 +32,24 @@ services:
   keepalived-master:
     image: keepalived-master
     container_name: keepalived-master
+    network_mode: host
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
       - NET_RAW
-    networks:
-      pgnet:
-        ipv4_address: 172.16.0.4
+    volumes:
+      - ./keepalived/keepalived-master/keepalived.conf:/usr/local/etc/keepalived/keepalived.conf
 
   keepalived-backup:
     image: keepalived-backup
     container_name: keepalived-backup
+    network_mode: host
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
       - NET_RAW
-    networks:
-      pgnet:
-        ipv4_address: 172.16.0.5
+    volumes:
+      - ./keepalived/keepalived-backup/keepalived.conf:/usr/local/etc/keepalived/keepalived.conf
 
 networks:
   pgnet:
